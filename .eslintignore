@@ -1,0 +1,7 @@
+dist/*
+build/*
+config/*
+src/*
+src/assets/iconfont.js
+node_modules/*
+webpack**
