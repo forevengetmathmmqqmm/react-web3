@@ -3,36 +3,21 @@ const Web3 = require('web3');
 import '../style/web3.css';
 import contractsApi from '../utils/contracts.json';
 let networks = new Object(contractsApi.networks);
-// for (const key of networks) {
-//     console.log('key',key);
-// }
 
 function WebThree () {
-    
-    console.log('list', typeof contractsApi.networks);
-    let web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
-    web3.eth.requestAccounts().then(res => {
-        console.log(res);
-    });
     const [blockNum, setBlockNum ] = useState(0);
     const [id, setId] = useState(1);
     const [balance, setBalance] = useState(1);
     const [contractApi, setContractApi] = useState(null);
-    web3.eth.getBlockNumber().then(res => {
-        setBlockNum(res);
-    });
-    web3.eth.getChainId().then(res => {
-        setId(res);
-    });
-    web3.eth.getBalance("0x8Ce73B72Cc5d76Ac50D233c9193a54A8Ed1779e5").then(res => {
-        console.log(res);
-        setBalance(web3.utils.fromWei(res, 'ether'));
-    });
-    web3.eth.getAccounts()
-    .then(res => {
-        console.log(res);
-    });
+    const [web3, setWeb3] = useState(null);
+    const [account, setAccount] = useState(null);
+    async function getAccount() {
+      let res = await web3.eth.getAccounts()
+      setAccount(res);
+    }
     function conntectFox(params) {
+        let web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
+        setWeb3(web3);
         web3.eth.requestAccounts().then(res => {
             console.log(res);
         });
@@ -67,6 +52,9 @@ function WebThree () {
             </div>
             <div className='web3-main' onClick={conntectFox}>
                 <button>连接小狐狸</button>
+            </div>
+            <div className='web3-main' onClick={getAccount}>
+                <button>获取钱包账户</button>
             </div>
             <div className='web3-main' onClick={sendTransaction}>
                 <button>发送交易</button>

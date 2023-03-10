@@ -1,9 +1,8 @@
 import React from 'react';
 import {message} from 'antd';
 import ReactDOM from 'react-dom';
-import browserHistory from 'react-router';
 import axios from 'axios';
-import {createBrowserHistory} from 'history';
+const createHashHistory = require("history").createHashHistory;
 import Root from './router';
 import store from './redux';
 
@@ -13,7 +12,7 @@ import './style/index.styl';
 import './assets/iconfont.css';
 import './assets/iconfont.js';
 import './index.css';
-const history = createBrowserHistory();
+const history = createHashHistory();
 export default history;
 // window object
 window.store = store;

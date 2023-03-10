@@ -1,5 +1,10 @@
 import React from 'react';
-import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
+import {
+  HashRouter,
+  Route,
+  Redirect,
+  Switch
+} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {hot} from 'react-hot-loader';
 import Store from '../redux';
@@ -25,7 +30,7 @@ const Router = ({component: Component, children, ...rest}) => (
 );
 
 const Root = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Provider store={Store}>
       <div className="router-content">
         {__DEVELOPMENT__ && <DevTools />}
@@ -42,11 +47,12 @@ const Root = () => (
             <Router exact path="/web3" component={WebThree} />
             <Router exact path="/user" component={User} />
             <Route path="*" component={NotFound} />
+            <Redirect to="home" />
           </Router>
         </Switch>
       </div>
     </Provider>
-  </BrowserRouter>
+  </HashRouter>
 );
 
 export default hot(module)(Root);
